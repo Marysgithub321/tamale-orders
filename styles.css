@@ -1,0 +1,102 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: white;
+  color: #0dbd79;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.container {
+  max-width: 600px;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #e3cdab;
+  border-radius: 10px;
+  text-align: center; /* Center align content inside container */
+}
+
+h1 {
+  color: #d57c36;
+}
+
+form {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  color: #c6695c;
+}
+
+input[type="date"],
+input[type="time"],
+input[type="number"],
+input[type="text"],
+select,
+button {
+  width: calc(100% - 16px); /* Adjust width for padding */
+  height: 40px; /* Set height for uniformity */
+  padding: 8px;
+  margin: 0 auto; /* Center align */
+  border: 1px solid #e3cdab; /* Match background color */
+  border-radius: 5px;
+  box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+button {
+  background-color: #d62427;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #a81c1e;
+}
+
+#orderList {
+  margin-top: 20px;
+}
+
+.order-item {
+  background-color: #d57c36;
+  color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  position: relative; /* Positioning for absolute elements inside */
+}
+
+.order-item label {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.order-item input[type="checkbox"] {
+  margin-left: 10px; /* Space between Delete button and checkbox */
+  vertical-align: middle;
+}
+
+.order-item .fulfilled-label {
+  color: #0dbd79; /* Green color for picked up checkbox text */
+}
+
+.order-item button {
+  margin-left: 10px; /* Space between Edit and Delete buttons */
+  width: 70px; /* Adjusted width for buttons */
+}
+
+#totalDozens {
+  font-size: 1.2rem;
+  font-weight: bolder;
+  margin-top: 20px;
+}
+
+legend {
+  font-weight: bolder;
+}

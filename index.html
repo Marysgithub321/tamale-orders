@@ -2,12 +2,66 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>Tamale Order Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Link to your custom icon -->
+    <link rel="icon" href="tamaleicon.png" type="image/png" />
+    <link rel="shortcut icon" href="tamaleicon.png" type="image/png" />
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/main.js"></script>
+    <div class="container">
+      <h1>Tamale Order Tracker</h1>
+
+      <form id="orderForm">
+        <label for="customerName">Customer Name:</label>
+        <input type="text" id="customerName" required />
+
+        <label for="pickupDate">Pickup Date:</label>
+        <input type="date" id="pickupDate" required />
+
+        <label for="pickupTime">Pickup Time:</label>
+        <input type="time" id="pickupTime" required />
+
+        <fieldset>
+          <legend>Type of Tamale:</legend>
+          <label>
+            <input type="radio" id="pork" name="tamaleType" value="Pork" />
+            Pork
+          </label>
+          <label>
+            <input
+              type="radio"
+              id="cheesePeppers"
+              name="tamaleType"
+              value="Cheese and Peppers"
+            />
+            Cheese and Peppers
+          </label>
+        </fieldset>
+
+        <label for="temperature">Temperature:</label>
+        <select id="temperature" required>
+          <option value="hot">Hot</option>
+          <option value="cold">Cold</option>
+        </select>
+
+        <label for="dozens">Number of Dozens:</label>
+        <input type="number" id="dozens" min="1" required />
+
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" required />
+
+        <button type="submit">Add Order</button>
+      </form>
+
+      <div id="orderList">
+        <!-- Orders will be dynamically added here -->
+      </div>
+
+      <div id="totalDozens">Total Dozens Sold: 0</div>
+    </div>
+
+    <script src="main.js"></script>
   </body>
 </html>
