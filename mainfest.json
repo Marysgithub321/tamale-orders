@@ -3,12 +3,12 @@
   "name": "Tamale Order Tracker",
   "icons": [
     {
-      "src": "/favicon-32x32.png",
+      "src": "/tamaleicon.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/favicon-32x32.png",
+      "src": "/tamaleicon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
