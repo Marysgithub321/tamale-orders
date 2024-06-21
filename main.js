@@ -1,3 +1,4 @@
+// Check if service workers are supported and register service worker
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function () {
     navigator.serviceWorker.register("/service-worker.js").then(
@@ -19,8 +20,8 @@ const orderForm = document.getElementById("orderForm");
 const orderList = document.getElementById("orderList");
 const totalDozensElement = document.getElementById("totalDozens");
 
-// Variable to keep track of total dozens sold
-let totalDozensSold = 0;
+// Initialize orders array with orders from localStorage or empty array
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
 
 // Function to create a new order item HTML
 function createOrderItem(order) {
@@ -52,34 +53,21 @@ function createOrderItem(order) {
 }
 
 // Function to render orders
-function renderOrders(orders) {
+function renderOrders() {
   orderList.innerHTML = ""; // Clearing existing order list
   orders.forEach((order) => {
     const orderItem = createOrderItem(order);
     orderList.appendChild(orderItem);
   });
+  updateTotalDozensSold();
 }
 
-// Sample initial orders (for testing purposes)
-let orders = [];
-
-// Render initial orders
-renderOrders(orders);
-
-// Function to add a new order
-function addOrder(order) {
-  orders.push(order);
-  renderOrders(orders);
-  totalDozensSold += order.dozens;
-  totalDozensElement.textContent = `Total Dozens Sold: ${totalDozensSold}`;
-}
-
-// Function to delete an order
-function deleteOrder(orderId) {
-  orders = orders.filter((order) => order.id !== orderId);
-  renderOrders(orders);
-  // Recalculate total dozens sold
-  totalDozensSold = orders.reduce((total, order) => total + order.dozens, 0);
+// Function to update total dozens sold
+function updateTotalDozensSold() {
+  const totalDozensSold = orders.reduce(
+    (total, order) => total + order.dozens,
+    0
+  );
   totalDozensElement.textContent = `Total Dozens Sold: ${totalDozensSold}`;
 }
 
@@ -91,7 +79,7 @@ function formatTime(timeString) {
   return `${formattedHours}:${minutes} ${period}`;
 }
 
-// Submit event handler for adding new order
+// Function to handle form submission
 function handleSubmit(event) {
   event.preventDefault();
   const newOrder = {
@@ -110,8 +98,21 @@ function handleSubmit(event) {
     phoneNumber: document.getElementById("phoneNumber").value,
     fulfilled: false, // Default to false for new orders
   };
-  addOrder(newOrder);
+  orders.push(newOrder);
+  localStorage.setItem("orders", JSON.stringify(orders));
+  renderOrders();
   orderForm.reset();
 }
 
+// Function to delete an order
+function deleteOrder(orderId) {
+  orders = orders.filter((order) => order.id !== orderId);
+  localStorage.setItem("orders", JSON.stringify(orders));
+  renderOrders();
+}
+
+// Event listeners
 orderForm.addEventListener("submit", handleSubmit);
+
+// Initial render of orders on page load
+renderOrders();
