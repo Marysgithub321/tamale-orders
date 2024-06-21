@@ -1,82 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tamale Order Tracker</title>
-    <link rel="stylesheet" href="styles.css" />
-    <!-- Link to your custom icon -->
-    <link
-      rel="icon"
-      href="images/android-chrome-512x512.png"
-      type="image/png"
-    />
-    <link
-      rel="shortcut icon"
-      href="images/android-chrome-512x512.png"
-      type="image/png"
-    />
-
-    <link rel="manifest" href="manifest.json" />
-    <link
-      rel="apple-touch-icon"
-      href="images/apple-touch-icon.png"
-      sizes="180x180"
-    />
-  </head>
-  <body>
-    <div class="container">
-      <h1>Tamale Order Tracker</h1>
-
-      <form id="orderForm">
-        <label for="customerName">Customer Name:</label>
-        <input type="text" id="customerName" required />
-
-        <label for="pickupDate">Pickup Date:</label>
-        <input type="date" id="pickupDate" required />
-
-        <label for="pickupTime">Pickup Time:</label>
-        <input type="time" id="pickupTime" required />
-
-        <fieldset>
-          <legend>Type of Tamale:</legend>
-          <label>
-            <input type="radio" id="pork" name="tamaleType" value="Pork" />
-            Pork
-          </label>
-          <label>
-            <input
-              type="radio"
-              id="cheesePeppers"
-              name="tamaleType"
-              value="Cheese and Peppers"
-            />
-            Cheese and Peppers
-          </label>
-        </fieldset>
-
-        <label for="temperature">Temperature:</label>
-        <select id="temperature" required>
-          <option value="hot">Hot</option>
-          <option value="cold">Cold</option>
-        </select>
-
-        <label for="dozens">Number of Dozens:</label>
-        <input type="number" id="dozens" min="1" required />
-
-        <label for="phoneNumber">Phone Number:</label>
-        <input type="text" id="phoneNumber" required />
-
-        <button type="submit">Add Order</button>
-      </form>
-
-      <div id="orderList">
-        <!-- Orders will be dynamically added here -->
-      </div>
-
-      <div id="totalDozens">Total Dozens Sold: 0</div>
-    </div>
-
-    <script type="module" src="main.js"></script>
-  </body>
-</html>
+Manifest: property 'start_url' ignored, URL is invalid. data:application/js…:1
+Manifest: property 'src' ignored, URL is invalid. data:application/js…:1
+Manifest: property 'src' ignored, URL is invalid. data:application/js…:1
+Manifest: property 'src' ignored, URL is invalid. data:application/js…:1
+Manifest: property 'src' ignored, URL is invalid. index-4a69d6a2.js:1
+ServiceWorker registration failed: TypeError: Failed to register a ServiceWorker
+for scope ('https://tamale-orders.vercel.app/') with script
+('https://tamale-orders.vercel.app/service-worker.js'): A bad HTTP response code
+(404) was received when fetching the script.
