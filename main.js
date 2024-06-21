@@ -30,25 +30,21 @@ function createOrderItem(order) {
 
   // HTML for order item
   orderItem.innerHTML = `
-        <p><strong>Pickup Date:</strong> ${order.pickupDate}</p>
-        <p><strong>Pickup Time:</strong> ${order.pickupTime}</p>
-        <p><strong>Type of Tamale:</strong> ${order.tamaleType.join(", ")}</p>
-        <p><strong>Temperature:</strong> ${order.temperature}</p>
-        <p><strong>Dozens:</strong> ${order.dozens}</p>
-        <p><strong>Customer Name:</strong> ${order.customerName}</p>
-        <p><strong>Phone Number:</strong> ${order.phoneNumber}</p>
-        <label>
-            <input type="checkbox" ${order.fulfilled ? "checked" : ""}>
-            <span class="fulfilled-label">Picked Up</span>
-        </label>
-        <button class="edit-btn">Edit</button>
-        <button class="delete-btn">Delete</button>
-    `;
+          <p><strong>Pickup Date:</strong> ${order.pickupDate}</p>
+          <p><strong>Pickup Time:</strong> ${formatTime(order.pickupTime)}</p>
+          <p><strong>Type of Tamale:</strong> ${order.tamaleType.join(", ")}</p>
+          <p><strong>Temperature:</strong> ${order.temperature}</p>
+          <p><strong>Dozens:</strong> ${order.dozens}</p>
+          <p><strong>Customer Name:</strong> ${order.customerName}</p>
+          <p><strong>Phone Number:</strong> ${order.phoneNumber}</p>
+          <label>
+              <input type="checkbox" ${order.fulfilled ? "checked" : ""}>
+              <span class="fulfilled-label">Picked Up</span>
+          </label>
+          <button class="delete-btn">Delete</button>
+      `;
 
-  // Adding event listeners to edit and delete buttons
-  const editBtn = orderItem.querySelector(".edit-btn");
-  editBtn.addEventListener("click", () => editOrder(order.id));
-
+  // Adding event listener to delete button
   const deleteBtn = orderItem.querySelector(".delete-btn");
   deleteBtn.addEventListener("click", () => deleteOrder(order.id));
 
@@ -87,55 +83,12 @@ function deleteOrder(orderId) {
   totalDozensElement.textContent = `Total Dozens Sold: ${totalDozensSold}`;
 }
 
-// Function to edit an order
-function editOrder(orderId) {
-  const orderToEdit = orders.find((order) => order.id === orderId);
-  if (!orderToEdit) return;
-
-  // Fill form with existing order details for editing
-  document.getElementById("pickupDate").value = orderToEdit.pickupDate;
-  document.getElementById("pickupTime").value = orderToEdit.pickupTime;
-  document.getElementById("temperature").value = orderToEdit.temperature;
-  document.getElementById("dozens").value = orderToEdit.dozens;
-  document.getElementById("customerName").value = orderToEdit.customerName;
-  document.getElementById("phoneNumber").value = orderToEdit.phoneNumber;
-  document.getElementById("pork").checked =
-    orderToEdit.tamaleType.includes("Pork");
-  document.getElementById("cheesePeppers").checked =
-    orderToEdit.tamaleType.includes("Cheese and Peppers");
-
-  // Remove the order from the list temporarily for editing
-  orders = orders.filter((order) => order.id !== orderId);
-  renderOrders(orders);
-  // Recalculate total dozens sold
-  totalDozensSold = orders.reduce((total, order) => total + order.dozens, 0);
-  totalDozensElement.textContent = `Total Dozens Sold: ${totalDozensSold}`;
-
-  // Update form submit to handle edit mode
-  orderForm.removeEventListener("submit", handleSubmit);
-  orderForm.addEventListener("submit", function handleSubmit(event) {
-    event.preventDefault();
-    const updatedOrder = {
-      id: orderId,
-      pickupDate: document.getElementById("pickupDate").value,
-      pickupTime: document.getElementById("pickupTime").value,
-      tamaleType: [
-        ...(document.getElementById("pork").checked ? ["Pork"] : []),
-        ...(document.getElementById("cheesePeppers").checked
-          ? ["Cheese and Peppers"]
-          : []),
-      ],
-      temperature: document.getElementById("temperature").value,
-      dozens: parseInt(document.getElementById("dozens").value),
-      customerName: document.getElementById("customerName").value,
-      phoneNumber: document.getElementById("phoneNumber").value,
-      fulfilled: orderToEdit.fulfilled, // Keep previous fulfillment status
-    };
-    addOrder(updatedOrder);
-    orderForm.reset();
-    orderForm.removeEventListener("submit", handleSubmit);
-    orderForm.addEventListener("submit", handleSubmit);
-  });
+// Function to format time from 24-hour format to 12-hour format with AM/PM
+function formatTime(timeString) {
+  const [hours, minutes] = timeString.split(":");
+  const period = hours >= 12 ? "PM" : "AM";
+  const formattedHours = hours % 12 || 12;
+  return `${formattedHours}:${minutes} ${period}`;
 }
 
 // Submit event handler for adding new order
