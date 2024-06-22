@@ -11,9 +11,9 @@ body {
 .container {
   max-width: 600px;
   min-height: 100vh;
-  padding: 0px;
+  padding: 20px;
   background-color: #e3cdab;
-  border: 3px solid #d57c36;
+  border: 3px solid #c6695c;
   border-radius: 10px;
   text-align: center; /* Center align content inside container */
 }
