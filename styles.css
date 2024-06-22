@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: white;
+  background-color: #e3cdab;
   color: #0dbd79;
   display: flex;
   justify-content: center;
@@ -11,7 +11,7 @@ body {
 .container {
   max-width: 600px;
   min-height: 100vh;
-  padding: 20px;
+  padding: 0px;
   background-color: #e3cdab;
   border-radius: 10px;
   text-align: center; /* Center align content inside container */
