@@ -17,8 +17,6 @@
   <body>
     <div class="container">
       <h1>Tamale Order Tracker</h1>
-      <div id="totalChiliColorado">Total Chili Colorado Ordered: 0</div>
-      <div id="totalPeppersCheese">Total Peppers and Cheese Ordered: 0</div>
 
       <form id="orderForm">
         <label for="customerName">Customer Name:</label>
@@ -34,11 +32,11 @@
 
         <fieldset>
           <legend>Chili Colorado:</legend>
-          <label for="coloradoDozens">Number of Tamales:</label>
+          <label for="coloradoAmount">Number of Tamales:</label>
           <input
             type="number"
-            id="coloradoDozens"
-            name="coloradoDozens"
+            id="coloradoAmount"
+            name="coloradoAmount"
             min="0"
             required
           />
@@ -51,11 +49,11 @@
 
         <fieldset>
           <legend>Peppers and Cheese:</legend>
-          <label for="cheeseDozens">Number of Tamales:</label>
+          <label for="cheeseAmount">Number of Tamales:</label>
           <input
             type="number"
-            id="cheeseDozens"
-            name="cheeseDozens"
+            id="cheeseAmount"
+            name="cheeseAmount"
             min="0"
             required
           />
@@ -68,6 +66,11 @@
 
         <button type="submit">Add Order</button>
       </form>
+
+      <div class="totalOrdered">
+        <div id="totalChiliColorado">Total Chili Colorado Ordered: 0</div>
+        <div id="totalPeppersCheese">Total Peppers and Cheese Ordered: 0</div>
+      </div>
 
       <div id="orderList">
         <!-- Orders will be dynamically added here -->

@@ -117,10 +117,10 @@ function createOrderItem(order) {
   orderItem.innerHTML = `
     <p><strong>Pickup Date:</strong> ${order.pickupDate}</p>
     <p><strong>Pickup Time:</strong> ${formatTime(order.pickupTime)}</p>
-    <p><strong>Chili Colorado:</strong> ${order.coloradoDozens} dozens (${
+    <p><strong>Chili Colorado:</strong> ${order.coloradoDozens} amount (${
     order.coloradoTemperature
   })</p>
-    <p><strong>Peppers and Cheese:</strong> ${order.cheeseDozens} dozens (${
+    <p><strong>Peppers and Cheese:</strong> ${order.cheeseDozens} amount (${
     order.cheeseTemperature
   })</p>
     <p><strong>Customer Name:</strong> ${order.customerName}</p>
@@ -150,8 +150,8 @@ function renderOrders() {
     orderList.appendChild(orderItem);
 
     // Update totals based on tamale type
-    totalChiliColorado += order.coloradoDozens;
-    totalPeppersCheese += order.cheeseDozens;
+    totalChiliColorado += order.coloradoAmount;
+    totalPeppersCheese += order.cheeseAmount;
   });
 
   // Update total dozens sold for each type

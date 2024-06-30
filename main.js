@@ -34,10 +34,10 @@ function createOrderItem(order) {
   orderItem.innerHTML = `
     <p><strong>Pickup Date:</strong> ${order.pickupDate}</p>
     <p><strong>Pickup Time:</strong> ${formatTime(order.pickupTime)}</p>
-    <p><strong>Chili Colorado:</strong> ${order.coloradoDozens} dozens (${
+    <p><strong>Chili Colorado:</strong> ${order.coloradoAmount} amount (${
     order.coloradoTemperature
   })</p>
-    <p><strong>Peppers and Cheese:</strong> ${order.cheeseDozens} dozens (${
+    <p><strong>Peppers and Cheese:</strong> ${order.cheeseAmount} amount (${
     order.cheeseTemperature
   })</p>
     <p><strong>Customer Name:</strong> ${order.customerName}</p>
@@ -67,13 +67,13 @@ function renderOrders() {
     orderList.appendChild(orderItem);
 
     // Update totals based on tamale type
-    totalChiliColorado += order.coloradoDozens;
-    totalPeppersCheese += order.cheeseDozens;
+    totalChiliColorado += order.coloradoAmount;
+    totalPeppersCheese += order.cheeseAmount;
   });
 
-  // Update total dozens sold for each type
-  totalChiliColoradoElement.textContent = `Total Chili Colorado Sold: ${totalChiliColorado}`;
-  totalPeppersCheeseElement.textContent = `Total Peppers and Cheese Sold: ${totalPeppersCheese}`;
+  // Update total ordered for each type
+  totalChiliColoradoElement.textContent = `Total Chili Colorado Ordered: ${totalChiliColorado}`;
+  totalPeppersCheeseElement.textContent = `Total Peppers and Cheese Ordered: ${totalPeppersCheese}`;
 }
 
 // Function to format time from 24-hour format to 12-hour format with AM/PM
@@ -91,12 +91,12 @@ function handleSubmit(event) {
     id: orders.length > 0 ? orders[orders.length - 1].id + 1 : 1,
     pickupDate: document.getElementById("pickupDate").value,
     pickupTime: document.getElementById("pickupTime").value,
-    coloradoDozens: parseInt(
-      document.getElementById("coloradoDozens").value,
+    coloradoAmount: parseInt(
+      document.getElementById("coloradoAmount").value,
       10
     ),
     coloradoTemperature: document.getElementById("coloradoTemperature").value,
-    cheeseDozens: parseInt(document.getElementById("cheeseDozens").value, 10),
+    cheeseAmount: parseInt(document.getElementById("cheeseAmount").value, 10),
     cheeseTemperature: document.getElementById("cheeseTemperature").value,
     customerName: document.getElementById("customerName").value,
     phoneNumber: document.getElementById("phoneNumber").value,
