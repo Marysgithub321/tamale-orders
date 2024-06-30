@@ -15,7 +15,7 @@ if ("serviceWorker" in navigator) {
   });
 }
 
-// Selecting form, order list, and total ordered elements
+// Selecting form, order list, and total dozens sold elements
 const orderForm = document.getElementById("orderForm");
 const orderList = document.getElementById("orderList");
 const totalChiliColoradoElement = document.getElementById("totalChiliColorado");
@@ -34,10 +34,10 @@ function createOrderItem(order) {
   orderItem.innerHTML = `
     <p><strong>Pickup Date:</strong> ${order.pickupDate}</p>
     <p><strong>Pickup Time:</strong> ${formatTime(order.pickupTime)}</p>
-    <p><strong>Chili Colorado:</strong> ${order.coloradoAmount} tamales (${
+    <p><strong>Chili Colorado:</strong> ${order.coloradoDozens} dozens (${
     order.coloradoTemperature
   })</p>
-    <p><strong>Peppers and Cheese:</strong> ${order.cheeseAmount} tamales (${
+    <p><strong>Peppers and Cheese:</strong> ${order.cheeseDozens} dozens (${
     order.cheeseTemperature
   })</p>
     <p><strong>Customer Name:</strong> ${order.customerName}</p>
@@ -67,13 +67,13 @@ function renderOrders() {
     orderList.appendChild(orderItem);
 
     // Update totals based on tamale type
-    totalChiliColorado += order.coloradoAmount;
-    totalPeppersCheese += order.cheeseAmount;
+    totalChiliColorado += order.coloradoDozens;
+    totalPeppersCheese += order.cheeseDozens;
   });
 
-  // Update total ordered for each type
-  totalChiliColoradoElement.textContent = `Total Chili Colorado Ordered: ${totalChiliColorado}`;
-  totalPeppersCheeseElement.textContent = `Total Peppers and Cheese Ordered: ${totalPeppersCheese}`;
+  // Update total dozens sold for each type
+  totalChiliColoradoElement.textContent = `Total Chili Colorado Sold: ${totalChiliColorado}`;
+  totalPeppersCheeseElement.textContent = `Total Peppers and Cheese Sold: ${totalPeppersCheese}`;
 }
 
 // Function to format time from 24-hour format to 12-hour format with AM/PM
@@ -91,12 +91,12 @@ function handleSubmit(event) {
     id: orders.length > 0 ? orders[orders.length - 1].id + 1 : 1,
     pickupDate: document.getElementById("pickupDate").value,
     pickupTime: document.getElementById("pickupTime").value,
-    coloradoAmount: parseInt(
-      document.getElementById("coloradoAmount").value,
+    coloradoDozens: parseInt(
+      document.getElementById("coloradoDozens").value,
       10
     ),
     coloradoTemperature: document.getElementById("coloradoTemperature").value,
-    cheeseAmount: parseInt(document.getElementById("cheeseAmount").value, 10),
+    cheeseDozens: parseInt(document.getElementById("cheeseDozens").value, 10),
     cheeseTemperature: document.getElementById("cheeseTemperature").value,
     customerName: document.getElementById("customerName").value,
     phoneNumber: document.getElementById("phoneNumber").value,
@@ -125,7 +125,7 @@ function toggleFulfilled(orderId) {
   }
 }
 
-// Event listener for form submission
+// Event listeners
 orderForm.addEventListener("submit", handleSubmit);
 
 // Initial render of orders on page load
