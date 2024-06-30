@@ -15,10 +15,11 @@ if ("serviceWorker" in navigator) {
   });
 }
 
-// Selecting form, order list, and total dozens sold element
+// Selecting form, order list, and total ordered elements
 const orderForm = document.getElementById("orderForm");
 const orderList = document.getElementById("orderList");
-const totalDozensElement = document.getElementById("totalDozens");
+const totalChiliColoradoElement = document.getElementById("totalChiliColorado");
+const totalPeppersCheeseElement = document.getElementById("totalPeppersCheese");
 
 // Initialize orders array with orders from localStorage or empty array
 let orders = JSON.parse(localStorage.getItem("orders")) || [];
@@ -31,23 +32,26 @@ function createOrderItem(order) {
 
   // HTML for order item
   orderItem.innerHTML = `
-          <p><strong>Pickup Date:</strong> ${order.pickupDate}</p>
-          <p><strong>Pickup Time:</strong> ${formatTime(order.pickupTime)}</p>
-          <p><strong>Type of Tamale:</strong> ${order.tamaleType.join(", ")}</p>
-          <p><strong>Temperature:</strong> ${order.temperature}</p>
-          <p><strong>Dozens:</strong> ${order.dozens}</p>
-          <p><strong>Customer Name:</strong> ${order.customerName}</p>
-          <p><strong>Phone Number:</strong> ${order.phoneNumber}</p>
-          <label>
-              <input type="checkbox" ${order.fulfilled ? "checked" : ""}>
-              <span class="fulfilled-label">Picked Up</span>
-          </label>
-          <button class="delete-btn">Delete</button>
-      `;
-
-  // Adding event listener to delete button
-  const deleteBtn = orderItem.querySelector(".delete-btn");
-  deleteBtn.addEventListener("click", () => deleteOrder(order.id));
+    <p><strong>Pickup Date:</strong> ${order.pickupDate}</p>
+    <p><strong>Pickup Time:</strong> ${formatTime(order.pickupTime)}</p>
+    <p><strong>Chili Colorado:</strong> ${order.coloradoAmount} tamales (${
+    order.coloradoTemperature
+  })</p>
+    <p><strong>Peppers and Cheese:</strong> ${order.cheeseAmount} tamales (${
+    order.cheeseTemperature
+  })</p>
+    <p><strong>Customer Name:</strong> ${order.customerName}</p>
+    <p><strong>Phone Number:</strong> ${order.phoneNumber}</p>
+    <label>
+      <input type="checkbox" ${
+        order.fulfilled ? "checked" : ""
+      } onchange="toggleFulfilled(${order.id})">
+      <span class="fulfilled-label">Picked Up</span>
+    </label>
+    <button class="delete-btn" onclick="deleteOrder(${
+      order.id
+    })">Delete</button>
+  `;
 
   return orderItem;
 }
@@ -55,20 +59,21 @@ function createOrderItem(order) {
 // Function to render orders
 function renderOrders() {
   orderList.innerHTML = ""; // Clearing existing order list
+  let totalChiliColorado = 0;
+  let totalPeppersCheese = 0;
+
   orders.forEach((order) => {
     const orderItem = createOrderItem(order);
     orderList.appendChild(orderItem);
-  });
-  updateTotalDozensSold();
-}
 
-// Function to update total dozens sold
-function updateTotalDozensSold() {
-  const totalDozensSold = orders.reduce(
-    (total, order) => total + order.dozens,
-    0
-  );
-  totalDozensElement.textContent = `Total Dozens Sold: ${totalDozensSold}`;
+    // Update totals based on tamale type
+    totalChiliColorado += order.coloradoAmount;
+    totalPeppersCheese += order.cheeseAmount;
+  });
+
+  // Update total ordered for each type
+  totalChiliColoradoElement.textContent = `Total Chili Colorado Ordered: ${totalChiliColorado}`;
+  totalPeppersCheeseElement.textContent = `Total Peppers and Cheese Ordered: ${totalPeppersCheese}`;
 }
 
 // Function to format time from 24-hour format to 12-hour format with AM/PM
@@ -86,14 +91,13 @@ function handleSubmit(event) {
     id: orders.length > 0 ? orders[orders.length - 1].id + 1 : 1,
     pickupDate: document.getElementById("pickupDate").value,
     pickupTime: document.getElementById("pickupTime").value,
-    tamaleType: [
-      ...(document.getElementById("pork").checked ? ["Pork"] : []),
-      ...(document.getElementById("cheesePeppers").checked
-        ? ["Cheese and Peppers"]
-        : []),
-    ],
-    temperature: document.getElementById("temperature").value,
-    dozens: parseInt(document.getElementById("dozens").value),
+    coloradoAmount: parseInt(
+      document.getElementById("coloradoAmount").value,
+      10
+    ),
+    coloradoTemperature: document.getElementById("coloradoTemperature").value,
+    cheeseAmount: parseInt(document.getElementById("cheeseAmount").value, 10),
+    cheeseTemperature: document.getElementById("cheeseTemperature").value,
     customerName: document.getElementById("customerName").value,
     phoneNumber: document.getElementById("phoneNumber").value,
     fulfilled: false, // Default to false for new orders
@@ -111,7 +115,17 @@ function deleteOrder(orderId) {
   renderOrders();
 }
 
-// Event listeners
+// Function to toggle order fulfillment status
+function toggleFulfilled(orderId) {
+  const order = orders.find((order) => order.id === orderId);
+  if (order) {
+    order.fulfilled = !order.fulfilled;
+    localStorage.setItem("orders", JSON.stringify(orders));
+    renderOrders();
+  }
+}
+
+// Event listener for form submission
 orderForm.addEventListener("submit", handleSubmit);
 
 // Initial render of orders on page load

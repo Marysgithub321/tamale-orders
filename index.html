@@ -12,57 +12,59 @@
       type="image/png"
     />
     <link rel="icon" href="images/apple-touch-icon.png" type="image/png" />
-    <link
-      rel="shortcut icon"
-      href="images/apple-touch-icon.png"
-      type="image/png"
-    />
     <link rel="manifest" href="/manifest.json" />
-
-    <link />
   </head>
   <body>
     <div class="container">
       <h1>Tamale Order Tracker</h1>
+      <div id="totalChiliColorado">Total Chili Colorado Ordered: 0</div>
+      <div id="totalPeppersCheese">Total Peppers and Cheese Ordered: 0</div>
 
       <form id="orderForm">
         <label for="customerName">Customer Name:</label>
-        <input type="text" id="customerName" required />
+        <input type="text" id="customerName" name="customerName" required />
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" required />
 
         <label for="pickupDate">Pickup Date:</label>
-        <input type="date" id="pickupDate" required />
+        <input type="date" id="pickupDate" name="pickupDate" required />
 
         <label for="pickupTime">Pickup Time:</label>
-        <input type="time" id="pickupTime" required />
+        <input type="time" id="pickupTime" name="pickupTime" required />
 
         <fieldset>
-          <legend>Type of Tamale:</legend>
-          <label>
-            <input type="radio" id="pork" name="tamaleType" value="Pork" />
-            Pork
-          </label>
-          <label>
-            <input
-              type="radio"
-              id="cheesePeppers"
-              name="tamaleType"
-              value="Cheese and Peppers"
-            />
-            Cheese and Peppers
-          </label>
+          <legend>Chili Colorado:</legend>
+          <label for="coloradoAmount">Amount of Tamales:</label>
+          <input
+            type="number"
+            id="coloradoAmount"
+            name="coloradoAmount"
+            min="0"
+            required
+          />
+          <label for="coloradoTemperature">Temperature:</label>
+          <select id="coloradoTemperature" name="coloradoTemperature" required>
+            <option value="hot">Hot</option>
+            <option value="cold">Cold</option>
+          </select>
         </fieldset>
 
-        <label for="temperature">Temperature:</label>
-        <select id="temperature" required>
-          <option value="hot">Hot</option>
-          <option value="cold">Cold</option>
-        </select>
-
-        <label for="dozens">Number of Dozens:</label>
-        <input type="number" id="dozens" min="1" required />
-
-        <label for="phoneNumber">Phone Number:</label>
-        <input type="text" id="phoneNumber" required />
+        <fieldset>
+          <legend>Peppers and Cheese:</legend>
+          <label for="cheeseAmount">Amount of Tamales:</label>
+          <input
+            type="number"
+            id="cheeseAmount"
+            name="cheeseAmount"
+            min="0"
+            required
+          />
+          <label for="cheeseTemperature">Temperature:</label>
+          <select id="cheeseTemperature" name="cheeseTemperature" required>
+            <option value="hot">Hot</option>
+            <option value="cold">Cold</option>
+          </select>
+        </fieldset>
 
         <button type="submit">Add Order</button>
       </form>
@@ -70,10 +72,9 @@
       <div id="orderList">
         <!-- Orders will be dynamically added here -->
       </div>
-
-      <div id="totalDozens">Total Dozens Sold: 0</div>
     </div>
 
-    <script type="module" src="main.js"></script>
+    <!-- Link to your main JavaScript file -->
+    <script src="main.js"></script>
   </body>
 </html>

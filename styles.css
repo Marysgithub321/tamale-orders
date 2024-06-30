@@ -20,6 +20,9 @@ body {
 
 h1 {
   color: #d57c36;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 40px;
+  font-weight: bolder;
 }
 
 form {
@@ -49,7 +52,7 @@ button {
 }
 
 button {
-  background-color: #d62427;
+  background-color: rgb(187, 13, 13);
   color: white;
   border: none;
   cursor: pointer;
@@ -92,12 +95,19 @@ button:hover {
   width: 70px; /* Adjusted width for buttons */
 }
 
-#totalDozens {
+#totalChiliColorado {
   font-size: 1.2rem;
   font-weight: bolder;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
+#totalPeppersCheese {
+  font-size: 1.2rem;
+  font-weight: bolder;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 legend {
   font-weight: bolder;
 }
